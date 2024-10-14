@@ -1,29 +1,32 @@
-function ingresarGastos() {
-  let presupuesto = parseFloat(prompt("Ingresa tu presupuesto:"));
-  let gastoAlimentacion = parseFloat(prompt("Ingresa el gasto en comida:"));
-  let gastoTransporte = parseFloat(prompt("Ingresa el gasto en transporte:"));
-  let gastoEntretenimiento = parseFloat(
-    prompt("Ingresa el gasto en entretenimiento:")
-  );
+function simuladorCompras() {
+  const productos = [];
+  let total = 0;
+  let detalleCompra = "Detalle de la compra:\n";
 
-  return [
-    presupuesto,
-    gastoAlimentacion,
-    gastoTransporte,
-    gastoEntretenimiento,
-  ];
+  let agregarProducto = true;
+  while (agregarProducto) {
+    const nombreProducto = prompt("Ingresa el nombre del producto:");
+    const precioProducto = parseFloat(
+      prompt("Ingresa el precio del producto:")
+    );
+
+    productos.push({
+      nombre: nombreProducto,
+      precio: precioProducto,
+    });
+
+    agregarProducto = confirm("¿Deseas agregar otro producto?");
+  }
+
+  for (let i = 0; i < productos.length; i++) {
+    total += productos[i].precio;
+    detalleCompra += `${productos[i].nombre}: $${productos[i].precio}\n`;
+  }
+
+  detalleCompra += `\nTotal de la compra: $${total}`;
+
+  alert(detalleCompra);
+  console.log(detalleCompra);
 }
 
-function calcularTotal(gastos) {
-  let totalGastos = gastos[1] + gastos[2] + gastos[3];
-  let saldo = gastos[0] - totalGastos;
-  return [totalGastos, saldo];
-}
-
-function mostrarResultados(totalGastos, saldo) {
-  alert("Total de gastos: $" + totalGastos + "\nSaldo: $" + saldo);
-}
-
-let gastos = ingresarGastos();
-let [totalGastos, saldo] = calcularTotal(gastos);
-mostrarResultados(totalGastos, saldo);
+simuladorCompras();
